@@ -138,7 +138,13 @@
 
 - (NSArray*)enabledPackageManagerKeys
 {
-    NSArray *enabledPkgManagers = [_preferenceManager preferenceValueForKey:@"enabledPkgManagers"] ?: @[];
+    // preselect Intella agent
+    NSArray *enabledPkgManagers = [_preferenceManager preferenceValueForKey:@"enabledPkgManagers"] ?: @[@"com.vound.intella.agent"];
+    
+    if (![_preferenceManager preferenceValueForKey:@"enabledPkgManagers"]) {
+        [_preferenceManager setPreferenceValue:enabledPkgManagers forKey:@"enabledPkgManagers"];
+    }
+
     NSMutableArray *enabledKeys = [NSMutableArray new];
     NSArray *availablePkgManagers = [self availablePackageManagers];
 
